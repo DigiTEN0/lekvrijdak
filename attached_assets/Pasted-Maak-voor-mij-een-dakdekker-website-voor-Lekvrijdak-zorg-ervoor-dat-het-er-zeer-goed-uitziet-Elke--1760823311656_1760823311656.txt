@@ -1,0 +1,73 @@
+Maak voor mij een dakdekker website voor Lekvrijdak, zorg ervoor dat het er zeer goed uitziet. Elke dienst moet een pagina hebben, met op elke pagina een offerte aanvraag functionaliteit.
+
+In de hero banner moet ook een simpele offerte aanvraag formulier aan de rechterkant zitten, zoals heel veel hoog converterende websites dat hebben die diensten leveren. Op de homepagina een grid met alle diensten, zodra je op de diensten drukt ga je naar die specifieke pagina van de dienst en zie je veel knoppen richting de geavanceerde offerte aanvraag formulier, deze formulier vraagt dezelfde informatie als de formulier in de hero banner maar het ziet er vele malen beter uit.. je hebt bij de eerste stap van de multi-stap formulier een grid waarbij ze alle diensten kunnen selecteren, daarna wordt er extra info gevraagd over het project en als laatst wordt er persoonlijke info gevraagd.
+
+PAGINA'S Home Over ons Diensten (Dropdown)
+
+Dakdekken
+Dakgoten
+Daklekkage
+Dakonderhoud
+Dakpannen
+Dakreparatie
+EPDM dakbedekking
+Platte daken
+Schoorstenen
+Stormschade
+Diensten + welke informatie wij nodig hebben wanneer mensen deze dienst selecteren in de offerte aanvraag pagina. Type opdracht Selecteer uw gewenste categorie:
+
+Bitumen dak leggen, 2. Dakpannen leggen, 3. Kunststof / EPDM dak leggen, 4. Rieten dak leggen, 5. Zinken dak leggen, 12. Schoorsteen reparatie Type werkzaamheden
+Nieuw dak plaatsen/vervangen
+Lekkages/reparatie
+Uitvoerdatum (indicatie) dd-mm-jjjj
+
+Projectomschrijving Beschrijf in het kort uw project en ontvang specifiekere offertes [Text area]
+
+Dakgoot reinigen, 7. Dakgoot vervangen of repareren Aantal dakgoten
+1
+2
+3
+4
+5
+6+
+Lengte van de dakgoten [Text field]
+
+Uitvoerdatum (indicatie) dd-mm-jjjj
+
+Projectomschrijving Beschrijf in het kort uw project en ontvang specifiekere offertes [Text area]
+
+Dak reinigen / Ontmossen, 9. Dak lekkage / -reparatie, 10. Dak coaten, 11. Nokvorsten reparatie/vervangen, Aantal dakgoten
+1
+2
+3
+4
+5
+6+
+Oppervlakte van de daken [Text field]
+
+Uitvoerdatum (indicatie) dd-mm-jjjj
+
+Projectomschrijving Beschrijf in het kort uw project en ontvang specifiekere offertes [Text area]
+
+Hieronder heb je de informatie over Lekvrijdak
+
+Over ons: Lekvrij Dak bv
+
+Tel: +31 612466941
+
+Mail: info@lekvrijdak.nl
+
+KvK: 92210686
+
+Maandag t/m Zaterdag | 08.00 – 18.00 uur
+
+Logo url: https://lekvrijdak.nl/wp-content/uploads/2023/12/new.png
+
+Voor afbeeldingen gebruik gewoon afbeeldingen van daken, dakgoot, schoorsteen etc je komt er wel uit.
+
+HEEL BELANGRIJK: Zorg als laatste dat je een dashboard maakt waarin ik kan inloggen als eigenaar van de website, de link met: Inloggen MOET in de footer staan Maak een standaard fixed account:
+
+info@lekvrijdak.nl
+lekvrijdak123!
+Zodra ik hierop inlog zie ik alle aanvragen netjes, ik kan voor elke aanvraag de status wijzigen.
+
