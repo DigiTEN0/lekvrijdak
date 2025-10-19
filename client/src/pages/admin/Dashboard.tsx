@@ -19,7 +19,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LogOut, Mail, Phone, MapPin, Calendar, FileText } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { LogOut, Mail, Phone, MapPin, Calendar, FileText, Trash2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { Quote, quoteStatuses } from "@shared/schema";
 import { format } from "date-fns";
@@ -62,6 +73,26 @@ export default function AdminDashboard() {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: async (id: string) => {
+      return await apiRequest("DELETE", `/api/quotes/${id}`, {});
+    },
+    onSuccess: () => {
+      toast({
+        title: "Verwijderd",
+        description: "De offerte is succesvol verwijderd",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/quotes"] });
+    },
+    onError: () => {
+      toast({
+        title: "Fout",
+        description: "Kon de offerte niet verwijderen",
+        variant: "destructive",
+      });
+    },
+  });
+
   const getStatusVariant = (status: string): "default" | "secondary" | "destructive" => {
     switch (status) {
       case "Nieuw":
@@ -76,21 +107,20 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="admin-dashboard min-h-screen bg-background">
-      <header className="admin-header border-b bg-card sticky top-0 z-10">
-        <div className="admin-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="admin-header-flex flex items-center justify-between">
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="admin-title font-heading text-2xl font-bold" data-testid="text-dashboard-title">
-                Lekvrijdak Leads
+              <h1 className="font-heading text-2xl font-bold" data-testid="text-dashboard-title">
+                Lekvrijdak Admin Dashboard
               </h1>
-              <p className="admin-subtitle text-sm text-muted-foreground">Beheer uw offerte aanvragen</p>
+              <p className="text-sm text-muted-foreground">Beheer uw offerte aanvragen</p>
             </div>
             <Button
               variant="outline"
               onClick={() => logoutMutation.mutate()}
               data-testid="button-logout"
-              className="admin-logout-button"
             >
               <LogOut className="mr-2 h-4 w-4" />
               Uitloggen
@@ -99,68 +129,218 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="admin-main max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="admin-card">
-          <CardHeader className="admin-card-header">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Card>
+          <CardHeader>
             <CardTitle>Offerte Aanvragen ({quotes.length})</CardTitle>
           </CardHeader>
-          <CardContent className="admin-card-content">
+          <CardContent>
             {isLoading ? (
-              <div className="admin-loading text-center py-12">
+              <div className="text-center py-12">
                 <p className="text-muted-foreground">Laden...</p>
               </div>
             ) : quotes.length === 0 ? (
-              <div className="admin-empty text-center py-12">
+              <div className="text-center py-12">
                 <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">Geen offerte aanvragen gevonden</p>
               </div>
             ) : (
-              <div className="admin-table-wrapper overflow-x-auto">
-                <Table className="admin-table">
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Datum</TableHead>
-                      <TableHead>Klant</TableHead>
-                      <TableHead>Dienst</TableHead>
-                      <TableHead>Contact</TableHead>
-                      <TableHead>Details</TableHead>
-                      <TableHead>Status</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {quotes.map((quote) => (
-                      <TableRow key={quote.id} data-testid={`row-quote-${quote.id}`} className="admin-row">
-                        <TableCell className="font-medium">
-                          {quote.createdAt
-                            ? format(new Date(quote.createdAt), "dd MMM yyyy", { locale: nl })
-                            : "-"}
-                        </TableCell>
-                        <TableCell>
-                          <div>
-                            <p className="font-medium">{quote.name}</p>
-                            <p className="text-sm text-muted-foreground flex items-center gap-1">
-                              <MapPin className="h-3 w-3" />
-                              {quote.postalCode}
+              <>
+                <div className="hidden md:block overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Datum</TableHead>
+                        <TableHead>Klant</TableHead>
+                        <TableHead>Dienst</TableHead>
+                        <TableHead>Contact</TableHead>
+                        <TableHead>Details</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead className="w-[50px]"></TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {quotes.map((quote) => (
+                        <TableRow key={quote.id} data-testid={`row-quote-${quote.id}`}>
+                          <TableCell className="font-medium">
+                            {quote.createdAt ? format(new Date(quote.createdAt), "dd MMM yyyy", { locale: nl }) : "-"}
+                          </TableCell>
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">{quote.name}</p>
+                              <p className="text-sm text-muted-foreground flex items-center gap-1">
+                                <MapPin className="h-3 w-3" />
+                                {quote.postalCode}
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline">{quote.serviceType}</Badge>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1 text-sm">
+                              <a href={`mailto:${quote.email}`} className="flex items-center gap-1 hover:text-primary">
+                                <Mail className="h-3 w-3" />
+                                {quote.email}
+                              </a>
+                              <a href={`tel:${quote.phone}`} className="flex items-center gap-1 hover:text-primary">
+                                <Phone className="h-3 w-3" />
+                                {quote.phone}
+                              </a>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="max-w-xs space-y-1 text-sm">
+                              {quote.typeOpdracht && (
+                                <p><span className="font-medium">Type:</span> {quote.typeOpdracht}</p>
+                              )}
+                              {quote.typeWerkzaamheden && (
+                                <p><span className="font-medium">Werkzaamheden:</span> {quote.typeWerkzaamheden}</p>
+                              )}
+                              {quote.aantalDakgoten && (
+                                <p><span className="font-medium">Aantal goten:</span> {quote.aantalDakgoten}</p>
+                              )}
+                              {quote.lengteDakgoten && (
+                                <p><span className="font-medium">Lengte:</span> {quote.lengteDakgoten}m</p>
+                              )}
+                              {quote.oppervlakte && (
+                                <p><span className="font-medium">Oppervlakte:</span> {quote.oppervlakte}m²</p>
+                              )}
+                              {quote.uitvoerdatum && (
+                                <p className="flex items-center gap-1">
+                                  <Calendar className="h-3 w-3" />
+                                  {quote.uitvoerdatum}
+                                </p>
+                              )}
+                              <p className="text-muted-foreground italic mt-2">
+                                "{quote.projectOmschrijving.substring(0, 100)}..."
+                              </p>
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Select
+                              value={quote.status}
+                              onValueChange={(value) =>
+                                updateStatusMutation.mutate({ id: quote.id, status: value })
+                              }
+                            >
+                              <SelectTrigger 
+                                className="w-40"
+                                data-testid={`select-status-${quote.id}`}
+                              >
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {quoteStatuses.map((status) => (
+                                  <SelectItem key={status} value={status}>
+                                    {status}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                          <TableCell>
+                            <AlertDialog>
+                              <AlertDialogTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10"
+                                  data-testid={`delete-quote-${quote.id}`}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </AlertDialogTrigger>
+                              <AlertDialogContent>
+                                <AlertDialogHeader>
+                                  <AlertDialogTitle>Offerte verwijderen?</AlertDialogTitle>
+                                  <AlertDialogDescription>
+                                    Weet u zeker dat u deze offerte wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.
+                                  </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                  <AlertDialogCancel>Annuleren</AlertDialogCancel>
+                                  <AlertDialogAction
+                                    onClick={() => deleteMutation.mutate(quote.id)}
+                                    className="bg-destructive hover:bg-destructive/90"
+                                  >
+                                    Verwijderen
+                                  </AlertDialogAction>
+                                </AlertDialogFooter>
+                              </AlertDialogContent>
+                            </AlertDialog>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+
+                <div className="md:hidden space-y-4">
+                  {quotes.map((quote) => (
+                    <Card key={quote.id} className="relative" data-testid={`card-quote-${quote.id}`}>
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="flex-1">
+                            <CardTitle className="text-lg">{quote.name}</CardTitle>
+                            <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                              <Calendar className="h-3 w-3" />
+                              {quote.createdAt ? format(new Date(quote.createdAt), "dd MMM yyyy", { locale: nl }) : "-"}
                             </p>
                           </div>
-                        </TableCell>
-                        <TableCell>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-8 w-8 text-destructive hover:text-destructive hover:bg-destructive/10 flex-shrink-0"
+                                data-testid={`delete-quote-mobile-${quote.id}`}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Offerte verwijderen?</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Weet u zeker dat u deze offerte wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Annuleren</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => deleteMutation.mutate(quote.id)}
+                                  className="bg-destructive hover:bg-destructive/90"
+                                >
+                                  Verwijderen
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        <div>
                           <Badge variant="outline">{quote.serviceType}</Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="space-y-1 text-sm">
-                            <a href={`mailto:${quote.email}`} className="flex items-center gap-1 hover:text-primary">
-                              <Mail className="h-3 w-3" />
-                              {quote.email}
-                            </a>
-                            <a href={`tel:${quote.phone}`} className="flex items-center gap-1 hover:text-primary">
-                              <Phone className="h-3 w-3" />
-                              {quote.phone}
-                            </a>
+                        </div>
+
+                        <div className="space-y-2 text-sm">
+                          <div className="flex items-center gap-2">
+                            <MapPin className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <span>{quote.postalCode}</span>
                           </div>
-                        </TableCell>
-                        <TableCell>
-                          <div className="max-w-xs space-y-1 text-sm">
+                          <a href={`mailto:${quote.email}`} className="flex items-center gap-2 hover:text-primary">
+                            <Mail className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <span className="truncate">{quote.email}</span>
+                          </a>
+                          <a href={`tel:${quote.phone}`} className="flex items-center gap-2 hover:text-primary">
+                            <Phone className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+                            <span>{quote.phone}</span>
+                          </a>
+                        </div>
+
+                        {(quote.typeOpdracht || quote.typeWerkzaamheden || quote.aantalDakgoten || quote.lengteDakgoten || quote.oppervlakte || quote.uitvoerdatum) && (
+                          <div className="space-y-1 text-sm border-t pt-3">
                             {quote.typeOpdracht && (
                               <p><span className="font-medium">Type:</span> {quote.typeOpdracht}</p>
                             )}
@@ -177,27 +357,26 @@ export default function AdminDashboard() {
                               <p><span className="font-medium">Oppervlakte:</span> {quote.oppervlakte}m²</p>
                             )}
                             {quote.uitvoerdatum && (
-                              <p className="flex items-center gap-1">
-                                <Calendar className="h-3 w-3" />
-                                {quote.uitvoerdatum}
-                              </p>
+                              <p><span className="font-medium">Uitvoerdatum:</span> {quote.uitvoerdatum}</p>
                             )}
-                            <p className="text-muted-foreground italic mt-2">
-                              "{quote.projectOmschrijving.substring(0, 100)}..."
-                            </p>
                           </div>
-                        </TableCell>
-                        <TableCell>
+                        )}
+
+                        <div className="border-t pt-3">
+                          <p className="text-sm text-muted-foreground italic">
+                            "{quote.projectOmschrijving}"
+                          </p>
+                        </div>
+
+                        <div className="border-t pt-3">
+                          <label className="text-sm font-medium mb-2 block">Status</label>
                           <Select
                             value={quote.status}
                             onValueChange={(value) =>
                               updateStatusMutation.mutate({ id: quote.id, status: value })
                             }
                           >
-                            <SelectTrigger
-                              className="w-40 admin-status-select"
-                              data-testid={`select-status-${quote.id}`}
-                            >
+                            <SelectTrigger data-testid={`select-status-mobile-${quote.id}`}>
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -208,12 +387,12 @@ export default function AdminDashboard() {
                               ))}
                             </SelectContent>
                           </Select>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
             )}
           </CardContent>
         </Card>
