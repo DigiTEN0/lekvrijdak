@@ -235,6 +235,10 @@
     background: #000000bf;
   }
 
+  ul.space-y-3.text-sm.text-muted-foreground li {
+    margin-bottom: 10px;
+  }
+
   button.p-4.rounded-lg.border-2.transition-all.text-left.hover\:border-primary.hover\:bg-primary\/5.border-border span.font-medium.text-sm {
     font-size: 12px;
   }
