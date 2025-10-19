@@ -242,6 +242,117 @@
   loginA{
     color:#026614;
   }
+
+  /* Scoped only to admin dashboard */
+.admin-dashboard {
+  width: 100% !important;
+}
+
+/* Mobile-first adjustments */
+@media (max-width: 768px) {
+  /* General page padding and layout */
+  .admin-dashboard main,
+  .admin-main {
+    padding: 1rem !important;
+  }
+
+  .admin-dashboard header,
+  .admin-header {
+    position: relative !important;
+    padding: 0.75rem 1rem !important;
+  }
+
+  .admin-dashboard header h1,
+  .admin-title {
+    font-size: 1.25rem !important;
+  }
+
+  .admin-dashboard header p,
+  .admin-subtitle {
+    font-size: 0.875rem !important;
+  }
+
+  /* Dashboard header layout */
+  .admin-header-flex {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+
+  .admin-logout-button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+
+  /* Card container */
+  .admin-card,
+  .admin-card-header,
+  .admin-card-content {
+    padding: 1rem !important;
+  }
+
+  /* Table wrapper */
+  .admin-table-wrapper {
+    overflow-x: scroll !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .admin-table {
+    width: 700px !important; /* prevent squishing */
+    font-size: 0.875rem !important;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    white-space: nowrap !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Ensure the table cells don’t break layout */
+  .admin-table td p,
+  .admin-table td a,
+  .admin-table td div {
+    word-wrap: break-word !important;
+    white-space: normal !important;
+  }
+
+  /* Select dropdown responsiveness */
+  .admin-status-select,
+  .admin-dashboard .w-40,
+  .admin-dashboard [data-testid^="select-status-"] {
+    width: 100% !important;
+  }
+
+  /* Badge & small elements */
+  .admin-dashboard .badge,
+  .admin-dashboard .Badge {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+
+  /* Text truncation */
+  .admin-dashboard [data-testid^="row-quote-"] .text-sm {
+    font-size: 0.8rem !important;
+  }
+
+  /* Hide icons if too narrow */
+  @media (max-width: 480px) {
+    .admin-dashboard svg {
+      display: none !important;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      font-size: 0.75rem !important;
+    }
+
+    .admin-dashboard header h1,
+    .admin-title {
+      font-size: 1rem !important;
+    }
+  }
+}
+
 }
 
 /**
