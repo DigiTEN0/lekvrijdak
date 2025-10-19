@@ -83,7 +83,7 @@ export function Navigation() {
               </a>
             </div>
 
-            <Link href="https://lekvrijdak.up.railway.app/admin/login">
+            <Link href="/admin/login">
               <Button data-testid="button-cta-offerte">
                 Inloggen
               </Button>
@@ -141,7 +141,7 @@ export function Navigation() {
                   </a>
                 </div>
 
-                <Link href="https://lekvrijdak.up.railway.app/admin/login" className="pt-2">
+                <Link href="/admin/login" className="pt-2">
                   <Button className="w-full" onClick={handleLinkClick} data-testid="button-mobile-cta-offerte">
                     Inloggen
                   </Button>
