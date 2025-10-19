@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertQuoteSchema } from "@shared/schema";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import { z } from "zod";
 
 declare module "express-session" {
@@ -20,8 +21,16 @@ const isAuthenticated = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  const PgSession = connectPgSimple(session);
+
   app.use(
     session({
+      store: new PgSession({
+        conObject: {
+          connectionString: process.env.DATABASE_URL,
+        },
+        createTableIfMissing: true,
+      }),
       secret: process.env.SESSION_SECRET || "lekvrijdak-secret-key-change-in-production",
       resave: false,
       saveUninitialized: false,
