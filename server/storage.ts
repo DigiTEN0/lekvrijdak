@@ -89,6 +89,10 @@ export class MemStorage implements IStorage {
     this.quotes.set(id, updatedQuote);
     return updatedQuote;
   }
+
+  async deleteQuote(id: string): Promise<boolean> {
+    return this.quotes.delete(id);
+  }
 }
 
 export const storage = new MemStorage();
