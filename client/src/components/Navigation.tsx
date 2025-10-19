@@ -9,9 +9,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { serviceTypes } from "@shared/schema";
+import { useState } from "react";
 
 export function Navigation() {
   const [location] = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
 
   const mainLinks = [
     { href: "/", label: "Home" },
@@ -21,6 +23,10 @@ export function Navigation() {
   const isActive = (href: string) => {
     if (href === "/") return location === "/";
     return location.startsWith(href);
+  };
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -84,7 +90,7 @@ export function Navigation() {
             </Link>
           </div>
 
-          <Sheet>
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
                 <Menu className="h-6 w-6" />
@@ -97,6 +103,7 @@ export function Navigation() {
                     <Button
                       variant="ghost"
                       className={`w-full justify-start ${isActive(link.href) ? "bg-accent" : ""}`}
+                      onClick={handleLinkClick}
                       data-testid={`link-mobile-${link.label.toLowerCase().replace(" ", "-")}`}
                     >
                       {link.label}
@@ -114,6 +121,7 @@ export function Navigation() {
                       <Button
                         variant="ghost"
                         className="w-full justify-start text-sm"
+                        onClick={handleLinkClick}
                         data-testid={`link-mobile-service-${service.toLowerCase().replace(/ /g, "-")}`}
                       >
                         {service}
@@ -134,7 +142,7 @@ export function Navigation() {
                 </div>
 
                 <Link href="/#offerte" className="pt-2">
-                  <Button className="w-full" data-testid="button-mobile-cta-offerte">
+                  <Button className="w-full" onClick={handleLinkClick} data-testid="button-mobile-cta-offerte">
                     Gratis Offerte
                   </Button>
                 </Link>
