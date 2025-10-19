@@ -116,7 +116,7 @@ export default function AdminLogin() {
               >
                 {loginMutation.isPending ? "Inloggen..." : "Inloggen"}
               </Button>
-              <span className="loginSpan">Terug naar <a className="loginA" href="https://lekvrijdak.up.railway.app/">homepagina</a></span>
+              <span className="loginSpan">Terug naar <a className="loginA" href="https://dakdekker.digiten.nl/">homepagina</a></span>
             </form>
           </Form>
         </CardContent>
