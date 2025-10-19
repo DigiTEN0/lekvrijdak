@@ -7,6 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import FloatingContactButtons from "@/components/FloatingContactButtons";
+import FloatingQuoteButton from "@/components/FloatingQuoteButton";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import AdminLogin from "@/pages/admin/Login";
@@ -29,6 +30,7 @@ function Layout({ children }: { children: React.ReactNode }) {
       <Navigation />
       {children}
       <Footer />
+      <FloatingQuoteButton />
       <FloatingContactButtons />
     </>
   );
