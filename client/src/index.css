@@ -225,6 +225,11 @@
   .to-primary {
     --tw-gradient-to: hsl(131.76deg 100% 20% / 82%) var(--tw-gradient-to-position) !important;
   }
+
+  nav.sticky.top-0.z-50.bg-background\/95.backdrop-blur.supports-\[backdrop-filter\]\:bg-background\/80.border-b img.h-10 {
+    height: 75px !important;
+    width: auto !important;
+  }
 }
 
 /**
