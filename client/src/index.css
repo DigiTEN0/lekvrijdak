@@ -243,6 +243,10 @@
     margin-bottom: 10px;
   }
 
+  section#offerte {
+    --tw-gradient-from: hsl(0deg 0% 0% / 95%) var(--tw-gradient-from-position) !important;
+  }
+
   ul.space-y-3.text-sm.text-muted-foreground svg.lucide.lucide-clock.h-4.w-4.mt-0\.5.text-primary.shrink-0 {
     display: none !important;
   }
