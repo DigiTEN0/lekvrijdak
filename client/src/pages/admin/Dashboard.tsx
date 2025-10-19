@@ -76,20 +76,21 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b bg-card sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
+    <div className="admin-dashboard min-h-screen bg-background">
+      <header className="admin-header border-b bg-card sticky top-0 z-10">
+        <div className="admin-header-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="admin-header-flex flex items-center justify-between">
             <div>
-              <h1 className="font-heading text-2xl font-bold" data-testid="text-dashboard-title">
+              <h1 className="admin-title font-heading text-2xl font-bold" data-testid="text-dashboard-title">
                 Lekvrijdak Admin Dashboard
               </h1>
-              <p className="text-sm text-muted-foreground">Beheer uw offerte aanvragen</p>
+              <p className="admin-subtitle text-sm text-muted-foreground">Beheer uw offerte aanvragen</p>
             </div>
             <Button
               variant="outline"
               onClick={() => logoutMutation.mutate()}
               data-testid="button-logout"
+              className="admin-logout-button"
             >
               <LogOut className="mr-2 h-4 w-4" />
               Uitloggen
@@ -98,24 +99,24 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card>
-          <CardHeader>
+      <main className="admin-main max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <Card className="admin-card">
+          <CardHeader className="admin-card-header">
             <CardTitle>Offerte Aanvragen ({quotes.length})</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="admin-card-content">
             {isLoading ? (
-              <div className="text-center py-12">
+              <div className="admin-loading text-center py-12">
                 <p className="text-muted-foreground">Laden...</p>
               </div>
             ) : quotes.length === 0 ? (
-              <div className="text-center py-12">
+              <div className="admin-empty text-center py-12">
                 <FileText className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <p className="text-muted-foreground">Geen offerte aanvragen gevonden</p>
               </div>
             ) : (
-              <div className="overflow-x-auto">
-                <Table>
+              <div className="admin-table-wrapper overflow-x-auto">
+                <Table className="admin-table">
                   <TableHeader>
                     <TableRow>
                       <TableHead>Datum</TableHead>
@@ -128,9 +129,11 @@ export default function AdminDashboard() {
                   </TableHeader>
                   <TableBody>
                     {quotes.map((quote) => (
-                      <TableRow key={quote.id} data-testid={`row-quote-${quote.id}`}>
+                      <TableRow key={quote.id} data-testid={`row-quote-${quote.id}`} className="admin-row">
                         <TableCell className="font-medium">
-                          {quote.createdAt ? format(new Date(quote.createdAt), "dd MMM yyyy", { locale: nl }) : "-"}
+                          {quote.createdAt
+                            ? format(new Date(quote.createdAt), "dd MMM yyyy", { locale: nl })
+                            : "-"}
                         </TableCell>
                         <TableCell>
                           <div>
@@ -191,8 +194,8 @@ export default function AdminDashboard() {
                               updateStatusMutation.mutate({ id: quote.id, status: value })
                             }
                           >
-                            <SelectTrigger 
-                              className="w-40"
+                            <SelectTrigger
+                              className="w-40 admin-status-select"
                               data-testid={`select-status-${quote.id}`}
                             >
                               <SelectValue />
