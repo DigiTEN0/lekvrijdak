@@ -108,7 +108,7 @@ export default function AdminLogin() {
                 )}
               />
 
-              <Button style="margin-bottom: 10px;"
+              <Button className="loginKnop"
                 type="submit" 
                 className="w-full"
                 disabled={loginMutation.isPending}
@@ -116,7 +116,7 @@ export default function AdminLogin() {
               >
                 {loginMutation.isPending ? "Inloggen..." : "Inloggen"}
               </Button>
-              <span style="font-size:13px;">Terug naar <a styl="color: #026614;" href="https://lekvrijdak.up.railway.app/">homepagina</a></span>
+              <span className="loginSpan">Terug naar <a className="loginA" href="https://lekvrijdak.up.railway.app/">homepagina</a></span>
             </form>
           </Form>
         </CardContent>
