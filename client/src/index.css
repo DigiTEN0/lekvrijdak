@@ -230,6 +230,18 @@
     height: 75px !important;
     width: auto !important;
   }
+
+  loginKnop{
+    margin-bottom:10px !important;
+  } 
+  
+  loginSpan{
+    font-size:13px;
+  }
+  
+  loginA{
+    color:#026614;
+  }
 }
 
 /**
