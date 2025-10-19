@@ -223,6 +223,10 @@
     font-size: 12px !important;
   }
 
+  .shadcn-card.rounded-xl.border.bg-card.border-card-border.text-card-foreground.shadow-xl textarea#\:r33\:-form-item {
+    font-size: 14px !important;
+  }
+
   form.space-y-6 {
     background: white;
   }
