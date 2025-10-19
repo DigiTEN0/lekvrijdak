@@ -228,7 +228,7 @@
   }
 
   form.space-y-6 {
-    background: white;
+    background: white !important;
   }
 
   footer.bg-card.border-t.mt-20 {
