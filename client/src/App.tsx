@@ -58,8 +58,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/">
+    <>
+      <ScrollToTop />
+      <Switch>
+        <Route path="/">
         <Layout>
           <Home />
         </Layout>
@@ -147,6 +149,7 @@ function Router() {
         </Layout>
       </Route>
     </Switch>
+    </>
   );
 }
 
