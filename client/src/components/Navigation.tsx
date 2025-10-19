@@ -83,9 +83,9 @@ export function Navigation() {
               </a>
             </div>
 
-            <Link href="/#offerte">
+            <Link href="https://lekvrijdak.up.railway.app/admin/login">
               <Button data-testid="button-cta-offerte">
-                Gratis Offerte
+                Inloggen
               </Button>
             </Link>
           </div>
