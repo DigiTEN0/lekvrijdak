@@ -1,3 +1,4 @@
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { Switch, Route, Redirect, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider, useQuery } from "@tanstack/react-query";
