@@ -29,7 +29,7 @@ export function Navigation() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-3" data-testid="link-home-logo">
             <img 
-              src="https://lekvrijdak.nl/wp-content/uploads/2023/12/new.png" 
+              src="http://www.digiten.nl/wp-content/uploads/2025/10/signature-2-scaled.png" 
               alt="Lekvrijdak Logo" 
               className="h-10"
             />
