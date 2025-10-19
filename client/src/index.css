@@ -215,6 +215,10 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  form.space-y-6 {
+    background: white;
+  }
+
   footer.bg-card.border-t.mt-20 {
     margin-top: 0;
   }
