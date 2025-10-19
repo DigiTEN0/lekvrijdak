@@ -231,15 +231,15 @@
     width: auto !important;
   }
 
-  loginKnop{
+  .loginKnop{
     margin-bottom:10px !important;
   } 
   
-  loginSpan{
+  .loginSpan{
     font-size:13px;
   }
   
-  loginA{
+  .loginA{
     color:#026614;
   }
 
