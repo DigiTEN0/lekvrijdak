@@ -219,6 +219,10 @@
     margin-top: 0;
   }
 
+  .sticky.top-0.bg-primary.text-white.px-6.py-4.flex.items-center.justify-between.z-10 h2.text-2xl.font-bold.font-heading {
+    font-size: 19px;
+  }
+
   .relative.max-w-7xl.mx-auto.px-4.sm\:px-6.lg\:px-8 span.text-lg {
     font-size: 14.5px;
   }
