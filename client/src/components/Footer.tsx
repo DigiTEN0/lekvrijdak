@@ -9,7 +9,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <img 
-              src="https://lekvrijdak.nl/wp-content/uploads/2023/12/new.png" 
+              src="http://www.digiten.nl/wp-content/uploads/2025/10/signature-2-scaled.png" 
               alt="Lekvrijdak Logo" 
               className="h-12 mb-4"
             />
