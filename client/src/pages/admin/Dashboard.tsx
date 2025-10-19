@@ -82,7 +82,7 @@ export default function AdminDashboard() {
           <div className="admin-header-flex flex items-center justify-between">
             <div>
               <h1 className="admin-title font-heading text-2xl font-bold" data-testid="text-dashboard-title">
-                Lekvrijdak Admin Dashboard
+                Lekvrijdak Leads
               </h1>
               <p className="admin-subtitle text-sm text-muted-foreground">Beheer uw offerte aanvragen</p>
             </div>
