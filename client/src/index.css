@@ -307,12 +307,30 @@
   width: 100% !important;
 }
 
+.grid.lg\:grid-cols-2.gap-12.items-center h1.font-heading.text-4xl.lg\:text-6xl.font-bold.mb-6 {
+    font-size: 45px !important;
+    font-weight: 500 !important;
+}
+
+.grid.lg\:grid-cols-2.gap-12.items-center p.text-xl.lg\:text-2xl.mb-8.text-primary-foreground\/90 {
+    font-size: 21px !important;
+}
+
 /* Mobile-first adjustments */
 @media (max-width: 768px) {
   /* General page padding and layout */
   .admin-dashboard main,
   .admin-main {
     padding: 1rem !important;
+  }
+
+  .grid.lg\:grid-cols-2.gap-12.items-center h1.font-heading.text-4xl.lg\:text-6xl.font-bold.mb-6 {
+    font-size: 29px !important;
+    font-weight: 500 !important;
+  }
+
+  .grid.lg\:grid-cols-2.gap-12.items-center p.text-xl.lg\:text-2xl.mb-8.text-primary-foreground\/90 {
+    font-size: 17px !important;
   }
 
   .admin-dashboard header,
