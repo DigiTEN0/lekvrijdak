@@ -1,6 +1,6 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Redirect, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Navigation } from "@/components/Navigation";
@@ -29,6 +29,30 @@ function Layout({ children }: { children: React.ReactNode }) {
       <Footer />
     </>
   );
+}
+
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const [, setLocation] = useLocation();
+  
+  const { data: user, isLoading, error } = useQuery({
+    queryKey: ["/api/admin/check"],
+    retry: false,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-muted-foreground">Laden...</p>
+      </div>
+    );
+  }
+
+  if (error || !user) {
+    setLocation("/admin/login");
+    return null;
+  }
+
+  return <>{children}</>;
 }
 
 function Router() {
@@ -111,7 +135,9 @@ function Router() {
       </Route>
 
       <Route path="/admin/dashboard">
-        <AdminDashboard />
+        <ProtectedRoute>
+          <AdminDashboard />
+        </ProtectedRoute>
       </Route>
 
       <Route>
