@@ -215,6 +215,10 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  footer.bg-card.border-t.mt-20 {
+    margin-top: 0;
+  }
+
   .relative.max-w-7xl.mx-auto.px-4.sm\:px-6.lg\:px-8 span.text-lg {
     font-size: 14.5px;
   }
