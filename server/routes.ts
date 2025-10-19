@@ -87,6 +87,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.delete("/api/quotes/:id", isAuthenticated, async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const deleted = await storage.deleteQuote(id);
+      
+      if (!deleted) {
+        return res.status(404).json({ error: "Offerte niet gevonden" });
+      }
+
+      res.json({ message: "Offerte succesvol verwijderd" });
+    } catch (error) {
+      res.status(500).json({ error: "Server fout" });
+    }
+  });
+
   app.post("/api/admin/login", async (req, res) => {
     try {
       const { email, password } = req.body;
