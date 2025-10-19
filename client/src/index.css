@@ -215,6 +215,7 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 
+  /* FOOTER */
   footer.bg-card.border-t.mt-20 {
     margin-top: 0;
   }
